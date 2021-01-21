@@ -1,0 +1,32 @@
+module.exports = {
+    loaderTitle: "WELCOME.",
+    loaderSmallText: "Jérémie Nallet - front-end developer",
+    introScrollingText: "Just scroll down to discover projects and more.",
+    introDesktop: [
+        { line: "Oh hi ! I’m Jérémie Nallet - " },
+        { line: "A junior ", inline: true },
+        { line: "front-end developer, ", inline: true, highlight: true },
+        { line: "I enjoy designing and building " },
+        { line: "beautiful products." },
+    ],
+    introMobile: [
+        { line: "Oh hi ! I’m " },
+        { line: "Jérémie Nallet - a " },
+        { line: "front end developer. ", highlight: true },
+        { line: "I enjoy designing. " },
+        { line: "designing and " },
+        { line: "building beautiful. " },
+        { line: "products." },
+    ],
+    skills: [
+        { title: "JavaScript", percentage: "95%" },
+        { title: "React.js / Next.js", percentage: "95%" },
+        { title: "React native", percentage: "70%" },
+        { title: "css3 / sass / html5", percentage: "95%" },
+        { title: "Node.js / Mongodb", percentage: "80%" },
+        { title: "Redux", percentage: "85%" },
+        { title: "Graphql", percentage: "85%" },
+        { title: "Adobe XD", percentage: "95%" },
+        { title: "Firebase", percentage: "95%" },
+    ],
+};

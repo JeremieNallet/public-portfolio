@@ -1,0 +1,30 @@
+@font-face {
+    font-family: graphik-regular;
+    src: url("/font/GraphikRegular.otf");
+    font-weight: normal;
+    font-display: swap;
+    font-size: normal;
+}
+@font-face {
+    font-family: graphik-semi;
+    src: url("/font/GraphikSemibold.otf");
+    font-weight: normal;
+    font-display: swap;
+    font-size: normal;
+}
+
+@font-face {
+    font-family: noe-medium;
+    src: url("/font/NoeDisplay-Medium.otf");
+    font-weight: normal;
+    font-display: swap;
+    font-size: normal;
+}
+
+@font-face {
+    font-family: noe-regular;
+    src: url("/font/NoeDisplay-Regular.otf");
+    font-weight: normal;
+    font-display: swap;
+    font-size: normal;
+}
