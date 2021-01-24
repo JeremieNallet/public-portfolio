@@ -16,11 +16,16 @@ import ThemeTransition from "../components/misc/ThemeTransition";
 import useScrollStatus from "../hooks/useScrollStatus";
 import { useStore } from "../../lib/store";
 import { scale, title } from "../../content/config/head";
+import SnakeLayout from "../components/snake/SnakeLayout";
+import { useContext } from "react";
+import { AudioContext } from "../context/audioContext";
 
 const Home = ({ projects, extra }) => {
     const loader = useStore((state) => state.loader);
     const isGameShowing = useStore((state) => state.isGameShowing);
     const isMusicPlaying = useStore((state) => state.isMusicPlaying);
+
+    const { audioRef } = useContext(AudioContext);
     useScrollStatus(`${loader.scrollReady ? "unset" : "hidden"}`);
 
     return (
@@ -38,8 +43,16 @@ const Home = ({ projects, extra }) => {
                 <Skills />
                 <Contact />
             </Layout>
-            <AnimatePresence>{isGameShowing && <Snake />}</AnimatePresence>
+            <AnimatePresence>
+                {isGameShowing && <SnakeLayout />}
+            </AnimatePresence>
             {isMusicPlaying && <div className="noise" />}
+            <audio
+                loop
+                ref={audioRef}
+                type="audio/mp3"
+                src="/audio/music.mp3"
+            />
         </>
     );
 };

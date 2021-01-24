@@ -16,7 +16,7 @@ import { useStore } from "../../../lib/store";
 // => Assets
 
 const AudioBtn = ({ className, variants, ...rest }) => {
-    const { playAudio, audioRef } = useContext(AudioContext);
+    const { playAudio } = useContext(AudioContext);
     const theme = useStore((state) => state.theme);
     const isMusicPlaying = useStore((state) => state.isMusicPlaying);
     const canvasRef = useRef(null);
@@ -109,12 +109,6 @@ const AudioBtn = ({ className, variants, ...rest }) => {
             }}
             {...rest}
         >
-            <audio
-                loop
-                ref={audioRef}
-                type="audio/mp3"
-                src="/audio/music.mp3"
-            />
             <canvas ref={canvasRef} width={30} height={30} />
         </m.button>
     );

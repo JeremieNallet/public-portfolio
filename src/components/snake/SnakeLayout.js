@@ -9,10 +9,11 @@ import BigButton from "../misc/BigButton";
 import { useStore } from "../../../lib/store";
 import * as easing from "../../../lib/easing";
 import SnakeGame from "./SnakeGame";
-import { X } from "react-feather";
 import { SIZE } from "../../constant/mesure";
+import AudioBtn from "../../components/misc/AudioBtn";
+import { CURSOR_OFFSET } from "../../constant/mesure";
 
-const Snake = () => {
+const SnakeLayout = () => {
     const foodRef = useRef(null);
     const gameScore = useStore((state) => state.gameScore);
     const setCursor = useStore((state) => state.setCursor);
@@ -24,9 +25,9 @@ const Snake = () => {
         if (foodRef.current) {
             const bindings = foodRef.current.getBoundingClientRect();
             const { left, right, top, bottom } = bindings;
-            const X_MID_POINT = (left + right) / 2 - 12.9;
-            const Y_MID_POINT = (top + bottom) / 2 - 12.9;
-            setCursor({ gameFoodBinding: { x: X_MID_POINT, y: Y_MID_POINT } });
+            const xMidPoint = (left + right) / 2 - CURSOR_OFFSET;
+            const yMidPoint = (top + bottom) / 2 - CURSOR_OFFSET;
+            setCursor({ gameFoodBinding: { x: xMidPoint, y: yMidPoint } });
         }
     }, [setCursor]);
 
@@ -58,7 +59,7 @@ const Snake = () => {
     };
 
     return (
-        <SnakeStyles
+        <SnakeLayoutStyles
             onScroll={() => placeCursorOnFood()}
             isMobile={isMobile}
             variants={containerVariants}
@@ -68,6 +69,7 @@ const Snake = () => {
             exit="exit"
         >
             <div className="content">
+                <AudioBtn className="content__audio-btn" />
                 <div className="content__title">
                     <TextReveal
                         initial="hidden"
@@ -83,19 +85,6 @@ const Snake = () => {
                     <span>score: {gameScore}</span>
                 </m.div>
 
-                <div className="mobile-bar">
-                    <small className="mobile-bar__score">
-                        score {gameScore}
-                    </small>
-                    <m.button
-                        aria-label="toggle-game-button"
-                        whileHover={{ scale: 0.9, opacity: 0.5 }}
-                        onClick={toggleGame}
-                        className="mobile-bar__close-btn"
-                    >
-                        <X size={22} />
-                    </m.button>
-                </div>
                 <m.div variants={lineVariants} className="content__line" />
                 <m.div transition={easing.expoFast}>
                     <SnakeGame
@@ -115,11 +104,11 @@ const Snake = () => {
                     <BigButton onClick={toggleGame} text="Close" />
                 </m.div>
             </div>
-        </SnakeStyles>
+        </SnakeLayoutStyles>
     );
 };
 
-const SnakeStyles = styled(m.div)`
+const SnakeLayoutStyles = styled(m.div)`
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -134,28 +123,22 @@ const SnakeStyles = styled(m.div)`
     right: 0;
     background: ${({ theme }) => theme.colorBackground};
 
-    .mobile-bar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        &__close-btn {
-            background: none;
-            border: none;
-        }
-        &__score {
-            font-size: 1.6rem;
-        }
-        @media (min-width: ${SIZE.smallMobile + 1}px) {
-            display: none;
-        }
-    }
-
     .content {
         margin: auto;
         padding: 1.5rem 0;
         text-align: center;
-        @media (max-width: ${SIZE.smallMobile + 1}px) {
-            margin: 1.5rem 1.5rem 0 1.5rem;
+
+        &__audio-btn {
+            position: fixed;
+            top: 1.3rem;
+            right: 1.5rem;
+            @media (max-width: ${SIZE.mobile}px) {
+                position: initial;
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                margin: -0.5rem 0 0 0.5rem;
+            }
         }
 
         &__helper {
@@ -164,8 +147,11 @@ const SnakeStyles = styled(m.div)`
             opacity: 0.8;
             margin-top: 1rem;
 
-            @media (max-width: ${SIZE.smallMobile + 1}px) {
+            @media (max-width: ${SIZE.mobile}px) {
                 text-align: center;
+                font-size: 1rem;
+                display: flex;
+                justify-content: center;
                 width: 100%;
             }
         }
@@ -176,8 +162,9 @@ const SnakeStyles = styled(m.div)`
             font-family: "noe-medium";
             transform-origin: top;
             margin-bottom: -1rem;
-            @media (max-width: ${SIZE.smallMobile + 1}px) {
-                display: none;
+
+            @media (max-width: ${SIZE.smallMobile}px) {
+                font-size: 14vw;
             }
         }
         &__score {
@@ -185,8 +172,9 @@ const SnakeStyles = styled(m.div)`
             font-size: 1.6rem;
             display: inline-flex;
             margin-bottom: 1rem;
-            @media (max-width: ${SIZE.smallMobile + 1}px) {
-                display: none;
+            @media (max-width: ${SIZE.mobile}px) {
+                font-size: 1.4rem;
+                margin: 1rem 0 1.5rem 0;
             }
         }
         &__line {
@@ -195,16 +183,14 @@ const SnakeStyles = styled(m.div)`
             height: 100vh;
             top: 0;
             left: 50%;
+
             width: 0.1rem;
             background: ${({ theme }) => theme.colorLine};
         }
         &__button {
             margin-top: 3rem;
-            @media (max-width: ${SIZE.smallMobile + 1}px) {
-                display: none;
-            }
         }
     }
 `;
 
-export default Snake;
+export default SnakeLayout;
